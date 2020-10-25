@@ -5,7 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-@SpringBootApplication
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
+
+@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @MapperScan({"com.generator.mppre.dao.*"} )
 @EnableAsync
 public class Application {

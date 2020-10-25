@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.generator.mppre.service.TestService;
+import com.generator.mppre.dao.TableDao;
 import com.generator.mppre.entity.TestDO;
 
 import io.swagger.annotations.Api;
@@ -37,11 +38,16 @@ import io.swagger.annotations.Api;
 public class TestController {
 
 	private TestService testService;
+	
+	
 
 	@Autowired
 	public TestController(@Qualifier("TestService") TestService testService) {
 		this.testService = testService;
 	}	
+	
+	@Autowired
+	private TableDao tableDao;
 	
 	// <以下IService接口为测试------------------------------------------------------------->
 	// <插入数据部分--------------------------------->
@@ -59,6 +65,14 @@ public class TestController {
 	@PostMapping("/save")
 	public void save(@RequestBody List<TestDO> testDOs) {
 		testService.saveBatch(testDOs);
+	}
+	
+	/**
+	 * 保存(批量)
+	 */
+	@PostMapping("/savelimit")
+	public void saveLimit(@RequestBody List<TestDO> testDOs) {
+		testService.saveBatch(testDOs, 2);
 	}
 
 	/**
@@ -275,5 +289,14 @@ public class TestController {
 		queryWrapper.eq("test_name", "测试名字-3");
 		return testService.count(queryWrapper);
 	}
+	
+    @GetMapping("/table/list")
+    public List<Map<String, Object>> list(String id) {       
+        return tableDao.listTable();
+    }
+    @RequestMapping("/table/columns")
+    public List<Map<String, Object>> info(String tableName) {
+        return tableDao.listTableColumn(tableName);
+    }
 	
 }

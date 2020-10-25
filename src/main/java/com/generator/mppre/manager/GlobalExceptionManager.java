@@ -14,7 +14,7 @@ import com.generator.mppre.entity.GlobalErrorDTO;
  * @since Sun Sep 20 18:19:07 CST 2020
  */
  
-//@RestControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionManager {
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionManager.class);
 
